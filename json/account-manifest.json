@@ -1,0 +1,354 @@
+	{
+   "MetadataTemplateVersion": "v0.1",
+   "AccountMetadata": [
+      {
+         "AccountId": "253108077392",
+         "Division": "GBS",
+         "BU": "ITO",
+         "CU": "ITO",
+         "WkrainierOu": "blah-blah-blah",
+         "CloudTrailLogs": "True",
+         "McafeeOu": "blah1-blah1-blah1",
+         "ActiveRegion": [
+            "us-east-1"
+			
+		
+         ],
+         "OpsRampClientId": "616093",
+         "OpsRampClientAgentUri": "https://blah.sdsds.com/sdsds.exe",
+         "VDC": [
+            {
+               "VdcId": "vpc-09528881b234ec911",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-c5ae43bf",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False",
+			   "WkStandardsEfExempt": "false"
+            },
+			{
+               "VdcId": "vpc-15ffb272",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-6b95de00",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "True"
+            },
+			{
+               "VdcId": "vpc-feefad98",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "True"
+            }
+            
+         ],
+         "Autoremediate": {
+            "Account": {
+               "VmTags": "True"
+            },
+            "Windows": {
+               "RemediationLevel": "quick"
+            },
+            "Linux": {
+               "Mcafee": "Y",
+               "OpsRamp": "Y"
+            }
+         }
+      },
+	  {
+         "AccountId": "142295284497",
+         "Division": "GBS",
+         "BU": "ITO",
+         "CU": "ITO",
+         "WkrainierOu": "blah-blah-blah",
+         "CloudTrailLogs": "True",
+         "McafeeOu": "blah1-blah1-blah1",
+         "ActiveRegion": [
+            "us-east-1"
+			
+		
+         ],
+         "OpsRampClientId": "616093",
+         "OpsRampClientAgentUri": "https://blah.sdsds.com/sdsds.exe",
+         "VDC": [
+            {
+               "VdcId": "vpc-e7652681",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False",
+			   "WkStandardsEfExempt": "false"
+            },
+            {
+               "VdcId": "vpc-c8479fac",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-a83180c0",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-da1418be",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            }
+			
+         ],
+         "Autoremediate": {
+            "Account": {
+               "VmTags": "True"
+            },
+            "Windows": {
+               "RemediationLevel": "quick"
+            },
+            "Linux": {
+               "Mcafee": "Y",
+               "OpsRamp": "N"
+            }
+         }
+      },
+	  {
+         "AccountId": "543566088985",
+         "Division": "GBS",
+         "BU": "ITO",
+         "CU": "ITO",
+         "WkrainierOu": "blah-blah-blah",
+         "CloudTrailLogs": "True",
+         "McafeeOu": "blah1-blah1-blah1",
+         "ActiveRegion": [
+            "us-east-1"
+			
+		
+         ],
+         "OpsRampClientId": "616093",
+         "OpsRampClientAgentUri": "https://blah.sdsds.com/sdsds.exe",
+         "VDC": [
+            {
+               "VdcId": "vpc-09e510e7de11db54d",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False",
+			   "WkStandardsEfExempt": "false"
+            },
+			{
+               "VdcId": "vpc-09eb4287032fd7ef1",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False",
+			   "WkStandardsEfExempt": "true"
+            },
+			{
+               "VdcId": "vpc-0ab7050f2d5c57aeb",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-57fe072c",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "True",
+			   "WkStandardsEfExempt": "false"
+            },
+			{
+               "VdcId": "vpc-7518dc0f",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "True"
+            },
+			{
+               "VdcId": "vpc-622ebe0a",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "True"
+            },
+			{
+               "VdcId": "vpc-7d148815",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "True"
+            },
+			{
+               "VdcId": "vpc-58897b3f",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "True"
+            }
+            
+            
+            
+         ],
+         "Autoremediate": {
+            "Account": {
+               "VmTags": "True"
+            },
+            "Windows": {
+               "RemediationLevel": "quick"
+            },
+            "Linux": {
+               "Mcafee": "Y",
+               "OpsRamp": "Y"
+            }
+         }
+      },
+	  {
+         "AccountId": "901451850421",
+         "Division": "GBS",
+         "BU": "ITO",
+         "CU": "ITO",
+         "WkrainierOu": "blah-blah-blah",
+         "CloudTrailLogs": "True",
+         "McafeeOu": "blah1-blah1-blah1",
+         "ActiveRegion": [
+            "us-east-1"
+			
+		
+         ],
+         "OpsRampClientId": "616093",
+         "OpsRampClientAgentUri": "https://blah.sdsds.com/sdsds.exe",
+         "VDC": [
+            {
+               "VdcId": "vpc-94d679ec",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False",
+			   "WkStandardsEfExempt": "false"
+            },
+            {
+               "VdcId": "vpc-c1426ca5",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False",
+			   "WkStandardsEfExempt": "false"
+            },
+			{
+               "VdcId": "vpc-d98e34bd",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-fec5429a",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-898808ec",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-616be308",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            },
+			{
+               "VdcId": "vpc-c2f4bca7",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "False"
+            }
+			
+         ],
+         "Autoremediate": {
+            "Account": {
+               "VmTags": "True"
+            },
+            "Windows": {
+               "RemediationLevel": "quick"
+            },
+            "Linux": {
+               "Mcafee": "Y",
+               "OpsRamp": "N"
+            }
+         }
+      },
+	  
+	  {
+         "AccountId": "185614922766",
+         "Division": "GBS",
+         "BU": "ITO",
+         "CU": "ITO",
+         "WkrainierOu": "blah-blah-blah",
+         "CloudTrailLogs": "True",
+         "McafeeOu": "blah1-blah1-blah1",
+         "ActiveRegion": [
+            "us-east-1"
+         ],
+         "OpsRampClientId": "616093",
+         "OpsRampClientAgentUri": "https://blah.sdsds.com/sdsds.exe",
+         "VDC": [
+            {
+               "VdcId": "vpc-864ad0e1",
+               "CustomWkrainierOu": "blahX-blahX-blahX",
+               "CustomMcafeeOu": "blah12-blah12-blah12",
+               "WkCircuit": "wkbelgium",
+               "VdcAutoRemediateExempt": "false",
+			   "WkStandardsEfExempt": "False"
+            },
+            {
+               "VdcId": "vpc-5e50cc27",
+               "CustomWkrainierOu": "blahX1-blahX1-blahX3",
+               "CustomMcafeeOu": "blah123-blah123-blah123",
+               "WkCircuit": "wknet",
+			   "WkStandardsEfExempt": "False"
+            }
+         ],
+         "Autoremediate": {
+            "Account": {
+               "VmTags": "true"
+            },
+            "Windows": {
+               "RemediationLevel": "quick"
+            },
+            "Linux": {
+               "Mcafee": "Y",
+               "OpsRamp": "Y"
+            }
+         }
+      }
+   
+   ]
+}
+
+
+

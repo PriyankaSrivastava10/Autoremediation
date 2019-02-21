@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "2.2",
+  "description": "InstallAgents",
+  "parameters": {
+    "OpsRampClientID": {
+      "description": "Client Id defined on OpsRamp",
+      "type": "String",
+      "default": "616093"
+    },
+    "S3PathOfPS": {
+      "description": "Path of Agents powershell script",
+      "type": "String",
+      "default": "https://s3.amazonaws.com/rainier-enterprise-cloud/manifest/AWS/remediationScripts/pri-test.ps1"
+    },
+    "Dest": {
+      "description": "Path of OutFile",
+      "type": "String",
+      "default": "C:\\WKwindowsAgentsV3.ps1"
+    },
+    "OpsRamp": {
+      "type": "String",
+      "default": "N"
+    },
+    "Mcafee": {
+      "type": "String",
+      "default": "N"
+    },
+    "OuPath": {
+      "type": "String",
+      "default": ""
+    },
+    "BU": {
+      "type": "String",
+      "default": "GBS"
+    },
+    "CU": {
+      "type": "String",
+      "default": "GBSIT"
+    },
+    "OpsRampClientAgentUri": {
+      "type": "String",
+      "default": "N"
+    },
+    "SAM": {
+      "type": "String",
+      "default": "N"
+    },
+    "Firewall": {
+      "type": "String",
+      "default": "N"
+    },
+    "Ntp": {
+      "type": "String",
+      "default": "N"
+    },
+    "Epel": {
+      "type": "String",
+      "default": "N"
+    }
+  },
+  "mainSteps": [
+    {
+      "action": "aws:runPowerShellScript",
+      "name": "InstallAgetnsOnWindows",
+      "precondition": {
+        "StringEquals": [
+          "platformType",
+          "Windows"
+        ]
+      },
+      "inputs": {
+        "runCommand": [
+          "Invoke-WebRequest {{ S3PathOfPS }} -OutFile {{ Dest }}",
+          "powershell.exe -executionpolicy unrestricted -file {{ Dest }} -InstallAgents 'Y' -OpsRampClientID {{ OpsRampClientID }} -OpsRamp {{ OpsRamp  }} -Mcafee {{Mcafee}} -SAM {{ SAM }} -Ntp {{ Ntp }} -BU {{ BU }} -CU {{ CU }}",
+          "Remove-Item -Recurse {{ Dest }}"
+        ]
+      }
+    },
+    {
+      "action": "aws:runShellScript",
+      "name": "InstallAgentsOnLinux",
+      "precondition": {
+        "StringEquals": [
+          "platformType",
+          "Linux"
+        ]
+      },
+      "inputs": {
+        "runCommand": [
+          "cd /tmp",
+          "yum install wget -y &> /dev/null",
+          "yum install dos2unix -y &> /dev/null",
+          "wget https://s3.amazonaws.com/rainier-enterprise-cloud/manifest/AWS/remediationScripts/wkAgents-V9.sh &> /dev/null",
+          "dos2unix wkAgents-V9.sh &> /dev/null",
+          "sh wkAgents-V9.sh --installOpsRamp {{ OpsRamp }} --installSAM {{ SAM }} --installEPEL {{ Epel }} --InstallFirewall {{ Firewall }} --enableNTP {{ Ntp }} --InstallMcAfee {{ Mcafee }}",
+          "yum remove dos2unix -y &> /dev/null",
+          "rm -f /tmp/wkAgents-V8.sh &> /dev/null"
+        ]
+      }
+    }
+  ]
+}
