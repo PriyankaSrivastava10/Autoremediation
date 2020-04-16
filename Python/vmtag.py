@@ -31,9 +31,9 @@ def checkVmTagingExempt(tags):
     if tags != []:
       for tag in tags:
         #print "%%%%%%%%%tag:", tag
-        print "%%%%%%%%%tag['Key']:", tag['Key']
+        #print "%%%%%%%%%tag['Key']:", tag['Key']
         if tag['Key']=='wk_cms_std_enf_exempt':
-          print "%%%%%%%%%tag['Value']:", tag['Value']
+         # print "%%%%%%%%%tag['Value']:", tag['Value']
           return tag['Value']
     return exemptStatus
 
@@ -59,11 +59,12 @@ def addTags(newTagList,instanceId,region, credentials):
   ec2=boto3.client('ec2', region_name=region, aws_access_key_id = credentials['AccessKeyId'], aws_secret_access_key = credentials['SecretAccessKey'], aws_session_token = credentials['SessionToken'])
   try:
     ec2.create_tags(Resources=[instanceId], Tags=newTagList)
-    print "Added tags..."
+    #print "Added tags..."
   except Exception as e:
     print e.message
 
 def checkVpcId(currentAccount, vpcId, metadata):
+    #print "metadata: ", metadata
     vpcStatus=''
     for account in metadata['AccountMetadata']:
       if currentAccount == account['AccountId']:
@@ -100,24 +101,27 @@ def tagVms(currentAccount, region, data, vmTags, credentials):
         notRemediatedVms.append(notRemediated)
       else:
         exemptStatus=checkVmTagingExempt(tags)
-        print "exemptStatus: ", exemptStatus
+        #print "exempt Status for instance Id: ",instanceId, "is: ", exemptStatus
         if exemptStatus == 'True' or exemptStatus == 'true':
-          print "inside true..."
+          #print "inside true..."
           notRemediated = {}
           notRemediated[instanceId]="The exemption flag for this VM is set to True"
           notRemediatedVms.append(notRemediated)
         else:
           if exemptStatus == 'False' or exemptStatus == 'false':
-            print "inside false..checking tags"
+           # print "inside false..checking tags"
+            newTagList = []
             newTagList=checkTags(tags, vmTags)
-            print "newTagList: ", newTagList
+            #print "newTagList: ", newTagList
             if newTagList != []:
-              print "Adding Tags"
+             # print "Adding Tags"
               addTags(newTagList,instanceId,region, credentials)
               taggedVm={}
               taggedVm[instanceId]="Tags Added"
             # taggedVm['AddedTags']=newTagList
               remediatedVms.append(taggedVm)
+            else:
+              print "No new tags found to be added."
   else:
     print "There are no instances in ",region," region of account ",currentAccount  
   #print "resultss..."

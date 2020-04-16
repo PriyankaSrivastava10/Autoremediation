@@ -2,6 +2,8 @@ import boto3
 import json
 import csv
 import sys
+import datetime
+import time
 
 #filepath="data.json"
 #activeFile="active.csv"
@@ -44,7 +46,7 @@ def checkAccountInMetadata(accountId, metadata):
 #       return None
 
 def fetchActiveRegion(accountId, account):
-        activeRegions=''
+        activeRegions=[]
         try:
                 activeRegions = account['ActiveRegion']
         except Exception as e:
@@ -64,6 +66,129 @@ def getOtherParameters(accountDetails):
         except Exception as e:
                 print e.message
         return otherParameters
+
+def getAccountLevelMaintenanceWindow(accountId, account):
+  maintenanceWindow = []
+  try:
+    if 'MaintenanceWindow' in account.keys():
+      maintenanceWindow = account['MaintenanceWindow']
+    else:
+      print "No Maintenance Window defined for the account ", accountId
+  except:
+    print e.message
+  return maintenanceWindow
+
+def getAutoRemediationTag(instanceId, region, credentials):
+  autoremediatetag =''
+  response_a = boto3.client('ec2', region_name=region, aws_access_key_id = credentials['AccessKeyId'], aws_secret_access_key = credentials['SecretAccessKey'], aws_session_token = credentials['SessionToken'])
+  try:
+    response_b = response_a.describe_instances( Filters=[{ 'Name': 'instance-id', 'Values': [instanceId] } ])
+    for reserved in response_b["Reservations"]:
+      for instance in reserved["Instances"]:
+        if "Tags" in instance.keys():
+           for tag in instance["Tags"]:
+             key = tag["Key"]
+             if "Wk_autoremediate" in tag ["Key"]:
+                autoremediatetag = tag["Value"]
+               
+        else:
+                  print "No Tags on this VM."
+  except Exception as f:
+    print f.message
+
+  return autoremediatetag
+
+def getVmLevelMaintenanceWindow(instanceId, region, credentials):
+  maintenanceWindow = []
+  autoremediateflag =[]
+  response_a = boto3.client('ec2', region_name=region, aws_access_key_id = credentials['AccessKeyId'], aws_secret_access_key = credentials['SecretAccessKey'], aws_session_token = credentials['SessionToken'])
+  try:
+    response_b = response_a.describe_instances( Filters=[{ 'Name': 'instance-id', 'Values': [instanceId] } ])
+    for reserved in response_b["Reservations"]:
+      for instance in reserved["Instances"]:
+        if "Tags" in instance.keys():
+           for tag in instance["Tags"]:
+             key = tag["Key"]
+             if "maintenance_window" in tag ["Key"]:
+                tag_value = tag["Value"]
+                maintenanceWindow.append(tag_value)  
+        else:
+                  print "No Tags on this VM."
+  except Exception as f:
+    print f.message
+
+  return maintenanceWindow
+
+def getVpcLevelMaintenanceWindow(vpcId, region, credentials):
+  maintenanceWindow = []
+  response_a = boto3.client('ec2', region_name=region, aws_access_key_id = credentials['AccessKeyId'], aws_secret_access_key = credentials['SecretAccessKey'], aws_session_token = credentials['SessionToken'])
+  try:
+    response_b = response_a.describe_vpcs( Filters=[{ 'Name': 'vpc-id', 'Values': [vpcId] } ])
+    for vpc in response_b["Vpcs"]:
+        if "Tags" in vpc.keys():
+           for tag in vpc["Tags"]:
+             key = tag["Key"]
+             if "maintenance_window" in tag ["Key"]:
+                tag_value = tag["Value"]
+                maintenanceWindow.append(tag_value)
+        else:
+                  print "No Tag on this VPC."
+  except Exception as f:
+    print f.message
+
+  return maintenanceWindow
+
+def compareCurrentTime(maintenanceWindow):
+    result = False
+    dayofweek = datetime.datetime.today().strftime("%A")
+    timestamp = time.time()
+    utc_time = datetime.datetime.utcfromtimestamp(timestamp).strftime('%H%M')
+    day_time = dayofweek + ' ' + utc_time
+    current_time =int(utc_time)
+    print "current utc time:::::",day_time
+    print "maintenanceWindow: ", maintenanceWindow
+    print "current_time: ", current_time
+    #print "dayofweek: ", dayofweek
+    try:
+     if maintenanceWindow != []:
+      for listitems in maintenanceWindow :
+        day = listitems.split(' ')
+        tag_day_window = day [0]
+        tag_time_window= day [1]
+     #   print "tag_day_window: ", tag_day_window
+      #  print "tag_time_window: ", tag_time_window
+        if dayofweek==tag_day_window :
+            TW =tag_time_window.split('-')
+            LB=int(TW[0])
+            UB=int(TW[1])
+            if ( current_time > LB and current_time < UB ):
+              return True
+            else:
+              print "Time window is notcorrect"
+    except Exception as f:
+       print f.message
+    return result
+
+def checkMaintenanceWindow(instanceId, vpcId, accountId, account, region, credentials):
+  result = False
+  maintenanceWindow = []
+
+  maintenanceWindow = getVmLevelMaintenanceWindow(instanceId, region, credentials)
+  if maintenanceWindow == []:
+    maintenanceWindow = getVpcLevelMaintenanceWindow(vpcId, region, credentials)
+    if maintenanceWindow == []:
+      maintenanceWindow = getAccountLevelMaintenanceWindow(accountId, account)
+      if maintenanceWindow == []:
+        print "Maintenance Window not defined at any level"
+        return False
+    
+  for time in maintenanceWindow:
+    result = compareCurrentTime(maintenanceWindow)
+    if result:
+      return result
+  return result
+  
+    
 
 
 def getInstanceList(region, credentials):
@@ -200,6 +325,7 @@ def fetchMetadataForEachInstance(accountList, credentials):
                                                                                         actions = checkAutoremediateActions(accountDetails, instanceData)
                                                                                         instanceAction.append(actions)
                                                                                         accountData['InstanceDetails']=instanceAction
+                                                                                        
                                                                                         #       print "final: ",finalOutput
                                                                                 else:
                                                                                         default = {accountId, region, instanceId, vpcId, exemptStatus}
@@ -220,7 +346,7 @@ def fetchMetadataForEachInstance(accountList, credentials):
                         else:
                                 msg="AccountId: "+accountId+" does not exists in metadata file. Hence No action taken on this account"
                                 noCheckAccountList.append(msg)
-                print "\n\n\n\n Auto Remediation actions:\n",finalOutput
+                #print "\n\n\n\n Auto Remediation actions:\n",finalOutput
                 #print "\nn defaultVMList: ", defaultVMList
                 #print "\nn noCheckAccountList: ", noCheckAccountList
 
