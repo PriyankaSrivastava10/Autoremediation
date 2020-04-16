@@ -55,6 +55,18 @@
          "tag_key":"wk_rainier_enf",
          "default_value":"false",
          "required":"True"
-      }
+      },
+	  {
+	    "tag_key":"maintenance_window",
+		"default_value":"Thursday 0000-2359",
+         "required":"True"
+	  },
+	    {
+	    "tag_key":"Wk_autoremediate",
+		"default_value":"True",
+         "required":"True"
+	  }
+	  
+	  
    ]
 }
